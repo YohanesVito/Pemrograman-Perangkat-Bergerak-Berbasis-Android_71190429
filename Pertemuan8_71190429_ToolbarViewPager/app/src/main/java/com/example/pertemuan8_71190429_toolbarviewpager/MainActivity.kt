@@ -22,11 +22,13 @@ class MainActivity : AppCompatActivity() {
         val viewPager = findViewById<ViewPager2>(R.id.pager)
 
         //Memasukkan seluruh fragment ke dalam ArrayList
-        val listFragment: ArrayList<Fragment> = arrayListOf(FragmentSatu(), FragmentDua())
+        val listFragment: ArrayList<Fragment> = arrayListOf(FragmentSatu(), FragmentDua(), FragmentTiga())
 
         //instansiasi Adapter untuk ViewPager
         val pagerAdapter = PagerAdapter(this, listFragment)
         viewPager.adapter = pagerAdapter
+        setSupportActionBar(findViewById(R.id.toolbar_default))
+        supportActionBar?.setDisplayShowTitleEnabled(false)
     }
     class PagerAdapter(val activity: AppCompatActivity, val listFragment: ArrayList<Fragment>): FragmentStateAdapter(activity) {
         override fun getItemCount(): Int = listFragment.size
@@ -41,14 +43,20 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.menu_profile -> {
             Toast.makeText(this,"Menu Profile",Toast.LENGTH_LONG).show()
+            val viewPagerProfile = findViewById<ViewPager2>(R.id.pager)
+            viewPagerProfile.setCurrentItem(1)
             true
         }
         R.id.menu_settings -> {
             Toast.makeText(this,"Menu Settings",Toast.LENGTH_LONG).show()
+            val viewPagerSetting = findViewById<ViewPager2>(R.id.pager)
+            viewPagerSetting.setCurrentItem(2)
             true
         }
         R.id.menu_camera -> {
             Toast.makeText(this,"Menu Camera",Toast.LENGTH_LONG).show()
+            val viewPagerCamera = findViewById<ViewPager2>(R.id.pager)
+            viewPagerCamera.setCurrentItem(0)
             true
         }
         else -> {
