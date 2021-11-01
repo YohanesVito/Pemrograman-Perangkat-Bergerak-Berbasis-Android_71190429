@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 
 class MainActivity : AppCompatActivity() {
@@ -27,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         val pagerAdapter = PagerAdapter(this, listFragment)
         viewPager.adapter = pagerAdapter
     }
-    class PagerAdapter(val activity: AppCompatActivity, val listFragment: ArrayList<Fragment>){
+    class PagerAdapter(val activity: AppCompatActivity, val listFragment: ArrayList<Fragment>): FragmentStateAdapter(activity) {
         override fun getItemCount(): Int = listFragment.size
 
         override fun createFragment(position: Int): Fragment = listFragment.get(position)
@@ -44,6 +45,10 @@ class MainActivity : AppCompatActivity() {
         }
         R.id.menu_settings -> {
             Toast.makeText(this,"Menu Settings",Toast.LENGTH_LONG).show()
+            true
+        }
+        R.id.menu_camera -> {
+            Toast.makeText(this,"Menu Camera",Toast.LENGTH_LONG).show()
             true
         }
         else -> {
