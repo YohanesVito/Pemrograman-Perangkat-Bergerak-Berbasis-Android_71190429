@@ -45,6 +45,24 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        btncari.setOnClickListener{
+            if(nama.text.toString() != ""){
+
+                val mahasiswa = Mahasiswa(nama.text.toString(), nim.text.toString(), ipk.text.toString())
+
+                firestore.collection("Mahasiswa").whereEqualTo("nama", nama.text.toString()).get().addOnSuccessListener {
+                    hasilPencarian->
+                    for (hasil in hasilPencarian){
+                        hasilNama.setText("${hasil.data["nama"]}")
+                        hasilNIM.setText("${hasil.data["nim"]}")
+                        hasilIPK.setText("${hasil.data["ipk"]}")
+                    }
+                }
+
+            }else{
+                Toast.makeText(this,"Data tidak ditemukan", Toast.LENGTH_LONG).show()
+            }
+        }
 
     }
 
