@@ -5,10 +5,11 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import com.google.firebase.firestore.FirebaseFirestore
 
 class MainActivity : AppCompatActivity() {
-    var firestore: FirebaseFirestore? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +27,24 @@ class MainActivity : AppCompatActivity() {
         val hasilIPK = findViewById<TextView>(R.id.tvHasilIPK)
 
 
-        firestore = FirebaseFirestore.getInstance()
+        val firestore = FirebaseFirestore.getInstance()
+
+        btnsimpan.setOnClickListener{
+            if(nama.text.toString() != "" && nim.text.toString() != "" && ipk.text.toString() != ""){
+
+                val mahasiswa = Mahasiswa(nama.text.toString(), nim.text.toString(), ipk.text.toString())
+                firestore.collection("Mahasiswa").add(mahasiswa)
+
+                Toast.makeText(this,"Data berhasil ditambahkan", Toast.LENGTH_LONG).show()
+                nama.setText("")
+                nim.setText("")
+                ipk.setText("")
+
+            }else{
+                Toast.makeText(this,"Data gagal ditambahkan", Toast.LENGTH_LONG).show()
+            }
+        }
+
 
     }
 
@@ -34,3 +52,4 @@ class MainActivity : AppCompatActivity() {
 
 
 }
+
