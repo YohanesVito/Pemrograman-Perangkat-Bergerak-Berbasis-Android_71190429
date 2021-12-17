@@ -19,6 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".SecondActivity" />
+        <activity android:name=".TambahDataPenduduk" />
+        <activity android:name=".LihatDataPenduduk" />
     </application>
 
 </manifest>
