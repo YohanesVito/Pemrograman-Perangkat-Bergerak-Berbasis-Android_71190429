@@ -5,7 +5,7 @@
       <map>
         <entry key="app/src/main/res/drawable/round_button.xml" value="0.15104166666666666" />
         <entry key="app/src/main/res/drawable/round_edittext.xml" value="0.278125" />
-        <entry key="app/src/main/res/layout/activity_lihatdatapenduduk.xml" value="0.13489583333333333" />
+        <entry key="app/src/main/res/layout/activity_lihatdatapenduduk.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.13451086956521738" />
         <entry key="app/src/main/res/layout/activity_second.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_tambahdatapenduduk.xml" value="0.13489583333333333" />

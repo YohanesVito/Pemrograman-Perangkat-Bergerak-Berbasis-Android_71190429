@@ -21,6 +21,7 @@ class SecondActivity : AppCompatActivity(){
         val btnlihatdata = findViewById<Button>(R.id.bt_lihatdata)
         val btntambahdata = findViewById<Button>(R.id.bt_tambahdata)
         val btnlogout = findViewById<Button>(R.id.bt_logout)
+
         btnlihatdata.setOnClickListener {
             val i = Intent(this, LihatDataPenduduk::class.java);
             startActivity(i)
