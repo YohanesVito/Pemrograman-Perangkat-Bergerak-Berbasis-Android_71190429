@@ -13,36 +13,27 @@ class PendudukAdapter (val listPenduduk: ArrayList<Penduduk>): RecyclerView.Adap
         var penduduk: Penduduk? = null
 
         fun bindView(penduduk: Penduduk){
-            this.contact = contact
-            v.findViewById<TextView>(R.id.tvName).text = contact.contactName
-            v.findViewById<TextView>(R.id.tvNumber).text = contact.contactNumber
-            v.findViewById<ImageView>(R.id.ivImage).setImageResource(contact.contactImage)
+            this.penduduk = penduduk
+            v.findViewById<TextView>(R.id.tv_noKTP).text = penduduk.pendudukKTP
+            v.findViewById<TextView>(R.id.tv_nama).text = penduduk.pendudukNama
+            v.findViewById<TextView>(R.id.tv_noHP).text = penduduk.pendudukHP
+            v.findViewById<TextView>(R.id.tv_alamat).text = penduduk.pendudukAlamat
 
-            v.setOnClickListener {
-                //Toast.makeText(v.context, "${contact?.contactName} - ${contact?.contactNumber}", Toast.LENGTH_SHORT).show()
-                val i = Intent(v.context, ContactDetail::class.java)
-                i.putExtra("name",contact.contactName)
-                i.putExtra("number",contact.contactNumber)
-                i.putExtra("image",contact.contactImage)
-                i.putExtra("email",contact.contactEmail)
-                i.putExtra("address",contact.contactAddress)
-                v.context.startActivity(i)
-            }
         }
     }
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactAdapter.ContactHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.item_contact, parent, false)
-        return ContactHolder(v)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PendudukAdapter.PendudukHolder {
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.item_penduduk, parent, false)
+        return PendudukHolder(v)
     }
     //memilih file layout XML yang akan dijadikan container
 
-    override fun onBindViewHolder(holder: ContactAdapter.ContactHolder, position: Int) {
+    override fun onBindViewHolder(holder: PendudukAdapter.PendudukHolder, position: Int) {
         //memasang data ke dalam file layout XML yang telah dipilih
-        holder.bindView(listContact[position])
+        holder.bindView(listPenduduk[position])
     }
 
     override fun getItemCount(): Int {
         //mengembalikan jumlah item yang terdapat pada RecyclerView
-        return listContact.size
+        return listPenduduk.size
     }
 }

@@ -18,7 +18,7 @@ class TambahDataPenduduk: AppCompatActivity() {
         val nohp = findViewById<EditText>(R.id.et_noHP)
         val alamat = findViewById<EditText>(R.id.et_alamat)
 
-        val btnsubmit = findViewById<Button>(R.id.bt_tambahdata)
+        val btnsubmit = findViewById<Button>(R.id.bt_submit)
         val btnback = findViewById<Button>(R.id.bt_back)
 
         val firestore = FirebaseFirestore.getInstance()
