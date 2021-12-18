@@ -10,7 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Final_DataPenduduk_71190429">
         <activity
-            android:name=".PendudukEdit"
+            android:name=".CariDataPenduduk"
+            android:exported="false" />
+        <activity
+            android:name=".EditDataPenduduk"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

@@ -43,8 +43,7 @@ class LihatDataPenduduk: AppCompatActivity(){
             }
 
         btnRefresh.setOnClickListener{
-            val i = Intent(this, LihatDataPenduduk::class.java);
-            startActivity(i)
+            this.recreate()
         }
     }
 }

@@ -10,9 +10,9 @@
     tools:context=".MainActivity">
 
     <ImageView
-        android:layout_width="150dp"
+        android:layout_width="250dp"
         android:layout_height="150dp"
-        android:src="@drawable/logoku"/>
+        android:src="@drawable/logoku" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -79,14 +79,27 @@
         android:textSize="20sp"
         android:text="Or" />
 
-
-    <Button
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/bt_loginEmail"
-        android:text="Login with Google"
-        android:textColor="@android:color/white"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="@color/myoren" />
+        android:padding="10dp"
+        android:gravity="center"
+        android:layout_marginTop="20dp">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="54dp"
+            android:background="@drawable/ic_baseline_email_24"
+            android:backgroundTint="@color/mykuning"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bt_loginEmail"
+            android:text="Login with Email"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/mykuning" />
+
+    </LinearLayout>
 
 </LinearLayout>

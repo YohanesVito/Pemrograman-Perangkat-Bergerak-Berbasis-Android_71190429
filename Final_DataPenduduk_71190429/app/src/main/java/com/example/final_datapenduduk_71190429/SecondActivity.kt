@@ -13,13 +13,13 @@ class SecondActivity : AppCompatActivity(){
         setContentView(R.layout.activity_second)
 
         val username = getIntent().getStringExtra("username")
-        val password = getIntent().getStringExtra("password")
 
         val message = findViewById<TextView>(R.id.welcomeText)
-        message.text = "Welcome ${username}, your password is ${password}"
+        message.text = "Welcome ${username}"
 
         val btnlihatdata = findViewById<Button>(R.id.bt_lihatdata)
         val btntambahdata = findViewById<Button>(R.id.bt_tambahdata)
+        val btncaridata = findViewById<Button>(R.id.bt_caridata)
         val btnlogout = findViewById<Button>(R.id.bt_logout)
 
         btnlihatdata.setOnClickListener {
@@ -29,6 +29,11 @@ class SecondActivity : AppCompatActivity(){
 
         btntambahdata.setOnClickListener {
             val i = Intent(this, TambahDataPenduduk::class.java);
+            startActivity(i)
+        }
+
+        btncaridata.setOnClickListener {
+            val i = Intent(this, CariDataPenduduk::class.java);
             startActivity(i)
         }
 

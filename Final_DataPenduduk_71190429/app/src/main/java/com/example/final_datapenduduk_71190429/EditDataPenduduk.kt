@@ -1,12 +1,14 @@
 package com.example.final_datapenduduk_71190429
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.*
+import com.google.common.net.InternetDomainName
 import com.google.firebase.firestore.FirebaseFirestore
 
-class PendudukEdit : AppCompatActivity() {
+class EditDataPenduduk : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_penduduk_edit)
@@ -29,7 +31,7 @@ class PendudukEdit : AppCompatActivity() {
         alamatPenduduk.setText("${alamat}")
 
         val btnEdit = findViewById<Button>(R.id.bt_edit)
-
+        val btnBack = findViewById<Button>(R.id.bt_back)
         val firestore = FirebaseFirestore.getInstance()
 
         btnEdit.setOnClickListener {
@@ -38,6 +40,7 @@ class PendudukEdit : AppCompatActivity() {
                     .get()
                     .addOnSuccessListener {
                         for (document in it){
+
                             firestore.collection("Penduduk").document(document.id)
                                 .update("pendudukNama",namaPenduduk.text.toString(),"pendudukHP",noHPPenduduk.text.toString(),"pendudukAlamat",alamatPenduduk.text.toString())
                                 .addOnSuccessListener {
@@ -48,6 +51,11 @@ class PendudukEdit : AppCompatActivity() {
                     .addOnFailureListener{
                         Log.d("Gagal", "Data gagal diubah")
                     }
+        }
+
+        btnBack.setOnClickListener { 
+            val i = Intent(this, LihatDataPenduduk::class.java)
+            startActivity(i)
         }
     }
 }

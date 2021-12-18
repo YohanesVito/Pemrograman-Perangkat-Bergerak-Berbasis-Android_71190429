@@ -32,7 +32,6 @@ class MainActivity : AppCompatActivity() {
             if(pw == "1234"){
                 val i = Intent(this, SecondActivity::class.java);
                 i.putExtra("username", name.toString())
-                i.putExtra("password", pw.toString())
                 startActivity(i)
             }
             else{
@@ -49,7 +48,6 @@ class MainActivity : AppCompatActivity() {
                         Toast.makeText(this,"Berhasil Login Email", Toast.LENGTH_SHORT).show()
                         val i = Intent(this, SecondActivity::class.java);
                         i.putExtra("username", username.text.toString())
-                        i.putExtra("password", password.text.toString())
                         startActivity(i)
                     }
                     else{
