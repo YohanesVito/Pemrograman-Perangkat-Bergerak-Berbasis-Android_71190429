@@ -1,37 +1,50 @@
 package com.example.final_datapenduduk_71190429
 
+import android.content.ContentValues.TAG
+import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.util.Log
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.FirebaseFirestore
 
 class LihatDataPenduduk: AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lihatdatapenduduk)
-        
-        //ambil data dari firestore
-        val listPenduduk = ArrayList<Penduduk>()
-        listPenduduk.add(Penduduk("340401231241", "Yohanes Vito Rizki", "08224124124", "Jalan Kanthil"))
-        listPenduduk.add(Penduduk("330401231241", "Raden Mas Pono Noto Boto Sedoso", "0899955555123", "Jalan Kenanga"))
 
-//        val penduduk = Penduduk(P.text.toString(), nim.text.toString(), ipk.text.toString())
-//
-//        firestore.collection("Mahasiswa").whereEqualTo("nama", nama.text.toString()).get().addOnSuccessListener {
-//                hasilPencarian->
-//            for (hasil in hasilPencarian){
-//                hasilNama.setText("${hasil.data["nama"]}")
-//                hasilNIM.setText("${hasil.data["nim"]}")
-//                hasilIPK.setText("${hasil.data["ipk"]}")
-//            }
-//        }
+        val firestore = FirebaseFirestore.getInstance()
 
-        //siapkan RecyclerView
-        val rvPenduduk = findViewById<RecyclerView>(R.id.rvListPenduduk)
-        rvPenduduk.layoutManager = LinearLayoutManager (this)
-        val adapter = PendudukAdapter(listPenduduk)
-        rvPenduduk.adapter = adapter
+        val btnRefresh = findViewById<Button>(R.id.bt_refresh)
+
+
+        firestore.collection("Penduduk")
+            .get()
+            .addOnSuccessListener { hasilPencarian->
+
+                val listPenduduk = ArrayList<Penduduk>()
+
+                for (document in hasilPencarian){
+                    listPenduduk.add(Penduduk("${document.data["pendudukKTP"]}","${document.data["pendudukNama"]}", "${document.data["pendudukHP"]}", "${document.data["pendudukAlamat"]}"))
+                }
+
+                //siapkan RecyclerView
+                val rvPenduduk = findViewById<RecyclerView>(R.id.rvListPenduduk)
+                rvPenduduk.layoutManager = LinearLayoutManager (this)
+                val adapter = PendudukAdapter(listPenduduk)
+                rvPenduduk.adapter = adapter
+            }
+            .addOnFailureListener{
+                Log.d("Gagal", "Pengambilan Dokumen Gagal")
+            }
+
+        btnRefresh.setOnClickListener{
+            val i = Intent(this, LihatDataPenduduk::class.java);
+            startActivity(i)
+        }
     }
 }

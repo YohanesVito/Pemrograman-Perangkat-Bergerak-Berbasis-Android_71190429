@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Final_DataPenduduk_71190429">
         <activity
+            android:name=".PendudukEdit"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

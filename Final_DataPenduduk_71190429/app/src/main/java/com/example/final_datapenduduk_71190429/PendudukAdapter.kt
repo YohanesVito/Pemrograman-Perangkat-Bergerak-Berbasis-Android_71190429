@@ -1,16 +1,22 @@
 package com.example.final_datapenduduk_71190429
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.FirebaseFirestore
 
 class PendudukAdapter (val listPenduduk: ArrayList<Penduduk>): RecyclerView.Adapter<PendudukAdapter.PendudukHolder>(){
     class PendudukHolder(val v: View): RecyclerView.ViewHolder(v){
         var penduduk: Penduduk? = null
+        val firestore = FirebaseFirestore.getInstance()
 
         fun bindView(penduduk: Penduduk){
             this.penduduk = penduduk
@@ -18,6 +24,38 @@ class PendudukAdapter (val listPenduduk: ArrayList<Penduduk>): RecyclerView.Adap
             v.findViewById<TextView>(R.id.tv_nama).text = penduduk.pendudukNama
             v.findViewById<TextView>(R.id.tv_noHP).text = penduduk.pendudukHP
             v.findViewById<TextView>(R.id.tv_alamat).text = penduduk.pendudukAlamat
+
+
+            //button delete
+            v.findViewById<Button>(R.id.bt_delete).setOnClickListener{
+
+                firestore.collection("Penduduk")
+                    .whereEqualTo("pendudukKTP", penduduk.pendudukKTP)
+                    .get()
+                    .addOnSuccessListener {
+                        for (document in it){
+                            firestore.collection("Penduduk").document(document.id).delete()
+                                .addOnSuccessListener {
+                                    Toast.makeText(v.context,"Data Berhasil dihapus, Silahkan refresh",Toast.LENGTH_SHORT).show()
+                                }
+                        }
+                    }
+                    .addOnFailureListener{
+                        Toast.makeText(v.context,"Data Gagal dihapus",Toast.LENGTH_SHORT).show()
+                    }
+            }
+
+            //button edit
+            v.findViewById<Button>(R.id.bt_edit).setOnClickListener{
+
+                val i = Intent(v.context, PendudukEdit::class.java)
+                i.putExtra("noKTP",penduduk.pendudukKTP)
+                i.putExtra("nama",penduduk.pendudukNama)
+                i.putExtra("noHP",penduduk.pendudukHP)
+                i.putExtra("alamat",penduduk.pendudukAlamat)
+                v.context.startActivity(i)
+
+            }
 
         }
     }
@@ -36,4 +74,5 @@ class PendudukAdapter (val listPenduduk: ArrayList<Penduduk>): RecyclerView.Adap
         //mengembalikan jumlah item yang terdapat pada RecyclerView
         return listPenduduk.size
     }
+
 }
