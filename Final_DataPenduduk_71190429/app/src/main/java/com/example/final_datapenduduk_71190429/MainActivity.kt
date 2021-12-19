@@ -23,15 +23,13 @@ class MainActivity : AppCompatActivity() {
 
         val username = findViewById<EditText>(R.id.et_username)
         val password = findViewById<EditText>(R.id.et_password)
-        val btnSubmit = findViewById<Button>(R.id.bt_submit)
-        val btnLogin = findViewById<Button>(R.id.bt_loginEmail)
+        val btnLogin = findViewById<Button>(R.id.bt_submit)
+        val btnLoginEmail = findViewById<Button>(R.id.bt_loginEmail)
 
-        btnSubmit.setOnClickListener {
-            val name = username.text.toString()
+        btnLogin.setOnClickListener {
             val pw = password.text.toString()
             if(pw == "1234"){
                 val i = Intent(this, SecondActivity::class.java);
-                i.putExtra("username", name.toString())
                 startActivity(i)
             }
             else{
@@ -39,7 +37,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        btnLogin.setOnClickListener{
+        btnLoginEmail.setOnClickListener{
             FirebaseAuth.getInstance().signInWithEmailAndPassword(
                 username.text.toString(),
                 password.text.toString())

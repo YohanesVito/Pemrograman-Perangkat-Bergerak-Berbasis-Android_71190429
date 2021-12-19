@@ -1,5 +1,6 @@
 package com.example.final_datapenduduk_71190429
 
+import android.app.Activity
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -38,14 +39,14 @@ class PendudukAdapter (val listPenduduk: ArrayList<Penduduk>): RecyclerView.Adap
                         for (document in it){
                             firestore.collection("Penduduk").document(document.id).delete()
                                 .addOnSuccessListener {
-                                    Toast.makeText(v.context,"Data Berhasil dihapus, Silahkan refresh",Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(v.context,"Data Berhasil dihapus",Toast.LENGTH_SHORT).show()
                                 }
                         }
                     }
                     .addOnFailureListener{
                         Toast.makeText(v.context,"Data Gagal dihapus",Toast.LENGTH_SHORT).show()
                     }
-
+                (v.context as Activity).recreate()
             }
 
             //button edit

@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Repo Android/Pemrograman-Perangkat-Bergerak-Berbasis-Android_71190429/Pertemuan7_71190429ListRecyclerView/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Repo Android/Pemrograman-Perangkat-Bergerak-Berbasis-Android_71190429/Pertemuan7_71190429ListRecyclerView/app/src/main/res/layout/item_contact.xml" value="0.1" />
+        <entry key="..\:/Repo Android/Pemrograman-Perangkat-Bergerak-Berbasis-Android_71190429/Pertemuan7_71190429ListRecyclerView/app/src/main/res/layout/item_contact_detail.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_contact.xml" value="0.1274062816616008" />
         <entry key="app/src/main/res/layout/item_contact_detail.xml" value="0.16" />

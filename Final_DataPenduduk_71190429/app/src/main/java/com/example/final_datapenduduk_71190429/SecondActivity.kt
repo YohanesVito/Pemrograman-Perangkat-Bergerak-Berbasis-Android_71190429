@@ -12,10 +12,6 @@ class SecondActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second)
 
-        val username = getIntent().getStringExtra("username")
-
-        val message = findViewById<TextView>(R.id.welcomeText)
-        message.text = "Welcome ${username}"
 
         val btnlihatdata = findViewById<Button>(R.id.bt_lihatdata)
         val btntambahdata = findViewById<Button>(R.id.bt_tambahdata)

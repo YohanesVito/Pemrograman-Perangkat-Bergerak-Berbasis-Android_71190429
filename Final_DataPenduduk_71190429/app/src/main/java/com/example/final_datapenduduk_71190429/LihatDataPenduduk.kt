@@ -19,8 +19,12 @@ class LihatDataPenduduk: AppCompatActivity(){
 
         val firestore = FirebaseFirestore.getInstance()
 
-        val btnRefresh = findViewById<Button>(R.id.bt_refresh)
+        val btnMenu = findViewById<Button>(R.id.bt_menu)
 
+        btnMenu.setOnClickListener {
+            val i = Intent(this, SecondActivity::class.java)
+            startActivity(i)
+        }
 
         firestore.collection("Penduduk")
             .get()
@@ -42,8 +46,5 @@ class LihatDataPenduduk: AppCompatActivity(){
                 Log.d("Gagal", "Pengambilan Dokumen Gagal")
             }
 
-        btnRefresh.setOnClickListener{
-            this.recreate()
-        }
     }
 }
