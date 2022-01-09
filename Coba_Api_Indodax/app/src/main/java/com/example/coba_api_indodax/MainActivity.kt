@@ -2,9 +2,11 @@ package com.example.coba_api_indodax
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
@@ -37,59 +39,52 @@ class MainActivity : AppCompatActivity() {
 
         val btnReq = findViewById<Button>(R.id.btnReq)
 
-
-        val queue = Volley.newRequestQueue(this)
-        val url = "https://indodax.com/api/ticker/" + coin
-        val jsonResponses: MutableList<String> = ArrayList()
-
         btnReq.setOnClickListener {
-            val stringRequest = StringRequest(
-                Request.Method.GET, url,
-                Response.Listener<String> { response ->
-                    low.setText(response)
-                },
-                Response.ErrorListener { low.text = "That didn't work!" })
-            queue.add(stringRequest)
+            namaCoin.setText(coin.text.toString().uppercase())
+            val url = "https://indodax.com/api/ticker/${coin.text.toString().lowercase()}"
+            coin.setText("")
+            val queue = Volley.newRequestQueue(this)
 
-//            volleyGet(url)
-
-//            val jsonObjectRequest = JsonObjectRequest(
-//                Request.Method.GET, url, null,
-//                { response ->
-//                    try {
-//                        val jsonArray = response.getJSONArray("data")
-//                        for (i in 0 until jsonArray.length()) {
-//                            val jsonObject = jsonArray.getJSONObject(i)
-//                            val last = jsonObject.getString("last")
-//                            jsonResponses.add(last)
-//                            low.text = "Response is: ${response}"
-//                        }
-//                    } catch (e: JSONException) {
-//                        e.printStackTrace()
-//                    }
-//                }) { error -> error.printStackTrace() }
-//            queue.add(jsonObjectRequest)
-
-        }
-        fun volleyGet(url: String) {
-            val jsonResponses: MutableList<String> = ArrayList()
-            val requestQueue = Volley.newRequestQueue(this)
-            val jsonObjectRequest = JsonObjectRequest(
-                Request.Method.GET, url, null,
-                { response ->
+            val request = JsonObjectRequest(Request.Method.GET,url,null,
+                { it ->
                     try {
-                        val jsonArray = response.getJSONArray("data")
-                        for (i in 0 until jsonArray.length()) {
-                            val jsonObject = jsonArray.getJSONObject(i)
-                            val last = jsonObject.getString("last")
-                            jsonResponses.add(last)
-                            print(last.toString())
-                        }
-                    } catch (e: JSONException) {
-                        e.printStackTrace()
+                        val ticker = JSONObject(it["ticker"].toString())
+
+                        val vlast= ticker["last"]
+                        val vhigh= ticker["high"]
+                        val vlow = ticker["low"]
+
+                        last.setText(vlast.toString())
+                        low.setText(vlow.toString())
+                        high.setText(vhigh.toString())
                     }
-                }) { error -> error.printStackTrace() }
-            requestQueue.add(jsonObjectRequest)
+                    catch(e: Exception){
+                        Toast.makeText(this,"Koin pair tidak ditemukan, ${e.message}",Toast.LENGTH_SHORT).show()
+                        coin.setText("")
+                        last.setText("")
+                        low.setText("")
+                        high.setText("")
+                    }
+
+                }, {
+                    Toast.makeText(this,"Koin tidak ditemukan",Toast.LENGTH_SHORT).show()
+                    Log.e("error","error")
+                })
+            queue.add(request)
+//            downloadTask()
         }
     }
+//    fun downloadTask(){
+//        val url = "https://indodax.com/api/ticker/"
+//        val queue = Volley.newRequestQueue(this)
+//        val request = StringRequest(
+//            Request.Method.GET,url,
+//            Response.Listener{ response ->
+//                Log.e("Berhasil",response.toString())
+//            },
+//            Response.ErrorListener {
+//
+//            })
+//        queue.add(request)
+//    }
 }
